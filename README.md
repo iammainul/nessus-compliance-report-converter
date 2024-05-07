@@ -7,7 +7,7 @@ This Python script converts compliance reports from Nessus, provided in CSV form
 - argparse
 You can install the required Python packages using pip:
   ```shell
-  pip install pandas argparse
+  pip install pandas argparse openpyxl
   ```
 
 ## Usage
