@@ -20,9 +20,17 @@ structured_data_list = []
 for entry in csv_data["Description"]:
     # Split the entry based on "Rationale" and "Solution" sections
     sections = entry.split("\n\n")
-    control_statement, status = sections[0].rsplit(":", 1)  # Split at the last colon
-    control_statement = control_statement.strip()
-    status = status.strip()
+    
+    # Extract control statement and status
+    control_statement = ""
+    status = ""
+    if ":" in sections[0]:
+        control_statement, status = sections[0].rsplit(":", 1)  # Split at the last colon
+        control_statement = control_statement.strip()
+        status = status.strip()
+    else:
+        # Handle the case where colon is not found in the first section
+        control_statement = sections[0].strip()
 
     # Find indices for "Rationale" and "Solution" to accurately extract the "Control Point"
     rationale_index = entry.find("\n\nRationale:")
@@ -46,7 +54,6 @@ for entry in csv_data["Description"]:
         "Solution": solution,
         "Output": output
     })
-
 # Convert the list to a DataFrame
 structured_data = pd.DataFrame(structured_data_list)
 
