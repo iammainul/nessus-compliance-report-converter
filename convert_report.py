@@ -4,7 +4,7 @@ import argparse
 # Create the parser
 parser = argparse.ArgumentParser(description='Process a CSV file.')
 parser.add_argument('-i', '--input', metavar='InputFile', type=str, help='The path to the input file', required=True)
-parser.add_argument('-o', '--output', metavar='OutputFile', type=str, help='The path to the output file. Default output (output.xlsx) file is stored is stored in the same directory of execution', default='output.xlsx')
+parser.add_argument('-o', '--output', metavar='OutputFile', type=str, help='The path to the output file. Default output (output.xlsx) file is stored is stored in the same directory of execution', default='output_processed.xlsx')
 
 # Parse the arguments
 args = parser.parse_args()
@@ -20,17 +20,9 @@ structured_data_list = []
 for entry in csv_data["Description"]:
     # Split the entry based on "Rationale" and "Solution" sections
     sections = entry.split("\n\n")
-    
-    # Extract control statement and status
-    control_statement = ""
-    status = ""
-    if ":" in sections[0]:
-        control_statement, status = sections[0].rsplit(":", 1)  # Split at the last colon
-        control_statement = control_statement.strip()
-        status = status.strip()
-    else:
-        # Handle the case where colon is not found in the first section
-        control_statement = sections[0].strip()
+    control_statement, status = sections[0].rsplit(":", 1)  # Split at the last colon
+    control_statement = control_statement.strip()
+    status = status.strip()
 
     # Find indices for "Rationale" and "Solution" to accurately extract the "Control Point"
     rationale_index = entry.find("\n\nRationale:")
@@ -54,6 +46,7 @@ for entry in csv_data["Description"]:
         "Solution": solution,
         "Output": output
     })
+
 # Convert the list to a DataFrame
 structured_data = pd.DataFrame(structured_data_list)
 
