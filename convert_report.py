@@ -4,7 +4,7 @@ import argparse
 # Create the parser
 parser = argparse.ArgumentParser(description='Process a CSV file.')
 parser.add_argument('-i', '--input', metavar='InputFile', type=str, help='The path to the input file', required=True)
-parser.add_argument('-o', '--output', metavar='OutputFile', type=str, help='The path to the output file. Default output (output.xlsx) file is stored is stored in the same directory of execution', default='output44.xlsx')
+parser.add_argument('-o', '--output', metavar='OutputFile', type=str, help='The path to the output file. Default output (output.xlsx) file is stored is stored in the same directory of execution', default='output.xlsx')
 
 # Parse the arguments
 args = parser.parse_args()
